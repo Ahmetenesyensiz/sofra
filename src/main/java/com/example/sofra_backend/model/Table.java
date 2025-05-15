@@ -16,11 +16,11 @@ public class Table {
     private String id;
 
     @NotBlank(message = "Restaurant ID is mandatory")
-    private String restaurantId; // Hangi restoranın masası
+    private String restaurantId;
 
     @NotBlank(message = "Table number is mandatory")
-    private String tableNumber;  // Masa numarası (örneğin: "1", "2")
+    private String tableNumber;
 
-    @NotBlank(message = "QR code ID is mandatory")
-    private String qrcodeId;     // QR kod için unique ID
+    @NotBlank(message = "QR Code ID is mandatory")
+    private String qrcodeId;
 }

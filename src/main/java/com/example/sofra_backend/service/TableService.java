@@ -17,27 +17,24 @@ public class TableService {
     private final TableRepository tableRepository;
 
     public List<Table> getAllTables() {
-        log.info("Fetching all tables");
         return tableRepository.findAll();
     }
 
     public Optional<Table> getTableById(String id) {
-        log.info("Fetching table with ID: {}", id);
         return tableRepository.findById(id);
     }
 
     public List<Table> getTablesByRestaurant(String restaurantId) {
-        log.info("Fetching tables for restaurant ID: {}", restaurantId);
         return tableRepository.findByRestaurantId(restaurantId);
     }
 
     public Table createTable(Table table) {
-        log.info("Creating new table: {}", table);
+        log.info("Creating table for restaurant {}", table.getRestaurantId());
         return tableRepository.save(table);
     }
 
     public void deleteTable(String id) {
-        log.info("Deleting table with ID: {}", id);
+        log.info("Deleting table with id {}", id);
         tableRepository.deleteById(id);
     }
 }
