@@ -40,4 +40,9 @@ public class RestaurantService {
         log.info("Deleting restaurant with ID: {}", id);
         restaurantRepository.deleteById(id);
     }
+
+    public List<Restaurant> getRestaurantsByOwnerId(String ownerId) {
+        return restaurantRepository.findByOwnerId(ownerId);
+    }
+
 }

@@ -2,11 +2,13 @@ package com.example.sofra_backend.controller;
 
 import com.example.sofra_backend.model.Restaurant;
 import com.example.sofra_backend.service.RestaurantService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/restaurants")
@@ -15,28 +17,34 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
+    @PreAuthorize("hasRole('OWNER') or hasRole('ADMIN')")
+    @PostMapping
+    public ResponseEntity<Restaurant> createRestaurant(@Valid @RequestBody Restaurant restaurant) {
+        Restaurant created = restaurantService.createRestaurant(restaurant);
+        return ResponseEntity.ok(created);
+    }
+
     @GetMapping
-    public List<Restaurant> getAllRestaurants() {
-        return restaurantService.getAllRestaurants();
+    public ResponseEntity<List<Restaurant>> getAllRestaurants() {
+        return ResponseEntity.ok(restaurantService.getAllRestaurants());
     }
 
     @GetMapping("/{id}")
-    public Optional<Restaurant> getRestaurantById(@PathVariable String id) {
-        return restaurantService.getRestaurantById(id);
+    public ResponseEntity<Restaurant> getRestaurantById(@PathVariable String id) {
+        return restaurantService.getRestaurantById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/owner/{ownerId}")
-    public List<Restaurant> getRestaurantsByOwner(@PathVariable String ownerId) {
-        return restaurantService.getRestaurantsByOwner(ownerId);
+    public ResponseEntity<List<Restaurant>> getRestaurantsByOwnerId(@PathVariable String ownerId) {
+        return ResponseEntity.ok(restaurantService.getRestaurantsByOwnerId(ownerId));
     }
 
-    @PostMapping
-    public Restaurant createRestaurant(@RequestBody Restaurant restaurant) {
-        return restaurantService.createRestaurant(restaurant);
-    }
-
+    @PreAuthorize("hasRole('OWNER') or hasRole('ADMIN')")
     @DeleteMapping("/{id}")
-    public void deleteRestaurant(@PathVariable String id) {
+    public ResponseEntity<Void> deleteRestaurant(@PathVariable String id) {
         restaurantService.deleteRestaurant(id);
+        return ResponseEntity.noContent().build();
     }
 }

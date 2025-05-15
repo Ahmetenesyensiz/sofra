@@ -3,6 +3,7 @@ package com.example.sofra_backend.model;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
@@ -22,7 +23,10 @@ public class Restaurant {
     private String name;
 
     @NotBlank(message = "Restaurant location is mandatory")
-    private String location;
+    private String location; // tam adres gibi
 
-    private String description; // opsiyonel bırakıldı
+    private String description; // opsiyonel açıklama
+
+    private Double latitude; // Google Maps için enlem
+    private Double longitude; // Google Maps için boylam
 }
