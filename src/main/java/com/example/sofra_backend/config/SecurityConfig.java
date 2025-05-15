@@ -26,7 +26,11 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        // Auth endpoint'leri herkes erişebilir
                         .requestMatchers("/api/auth/**").permitAll()
+                        // Admin endpoint'leri sadece ADMIN rolüne sahip kullanıcı erişebilir
+                        .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+                        // Diğer her endpoint sadece login olmuş kullanıcıya açık
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userService)
@@ -34,6 +38,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
