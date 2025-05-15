@@ -1,5 +1,8 @@
 package com.example.sofra_backend.model;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,9 +23,17 @@ public class User implements UserDetails {
     @Id
     private String id;
 
+    @NotBlank(message = "Name is mandatory")
     private String name;
+
+    @NotBlank(message = "Email is mandatory")
+    @Email(message = "Email should be valid")
     private String email;
+
+    @NotBlank(message = "Password is mandatory")
+    @Size(min = 6, message = "Password must be at least 6 characters long")
     private String password;
+
     private Role role; // ADMIN, OWNER, WAITER, CUSTOMER
     private Date createdAt;
 

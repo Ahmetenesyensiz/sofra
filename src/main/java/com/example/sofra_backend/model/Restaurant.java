@@ -1,5 +1,6 @@
 package com.example.sofra_backend.model;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,8 +15,14 @@ public class Restaurant {
     @Id
     private String id;
 
+    @NotBlank(message = "Owner ID is mandatory")
     private String ownerId; // User tablosundaki owner user ID
+
+    @NotBlank(message = "Restaurant name is mandatory")
     private String name;
+
+    @NotBlank(message = "Restaurant location is mandatory")
     private String location;
-    private String description;
+
+    private String description; // opsiyonel bırakıldı
 }
