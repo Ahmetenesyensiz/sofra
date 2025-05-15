@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +29,7 @@ public class User implements UserDetails {
 
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email should be valid")
+    @Indexed(unique = true)
     private String email;
 
     @NotBlank(message = "Password is mandatory")
