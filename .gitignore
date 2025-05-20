@@ -1,0 +1,29 @@
+# Global
+.DS_Store
+*.log
+.env
+.env.local
+
+# Node (frontend)
+sofra-mobile/node_modules/
+sofra-mobile/.expo/
+sofra-mobile/.expo-shared/
+sofra-mobile/metro-cache/
+sofra-mobile/build/
+sofra-mobile/dist/
+sofra-mobile/npm-debug.log*
+
+# Java (backend)
+sofra-backend/target/
+sofra-backend/.idea/
+sofra-backend/*.iml
+sofra-backend/.classpath
+sofra-backend/.project
+sofra-backend/.settings/
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
